@@ -1,5 +1,3 @@
-![](mocha.png)
-
 # MOCHA
 This repository contains the data and code for the paper `MOCHA: A Dataset for Training and Evaluating Reading Comprehension Metrics.`
 
