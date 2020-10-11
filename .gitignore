@@ -1,3 +1,4 @@
 mocha/
-.idea/
 env/
+.DS_Store
+.idea/
