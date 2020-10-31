@@ -19,19 +19,19 @@ pip install git+https://github.com/salaniz/pycocoevalcap
 ## Getting MOCHA
 The MOCHA dataset is available at `data/mocha.tar.gz`. 
 
-To reproduce the statistics of MOCHA found in the paper, first uncompress MOCHA, then run `python print_mocha_statistics.py`.
+To get statistics of MOCHA, first uncompress MOCHA, then run: `python print_mocha_statistics.py`.
 
-To check the SHA-1 hash of a data file on a Linux machine, run `sha1sum [filename]` and compare against the file `[filename].sha1`. 
+To check the SHA-1 hash of a data file, run `sha1sum [filename]` and compare against file `[filename].sha1`. 
 
 
 ## Baseline Metrics
-Code for getting predictions on MOCHA and the minimal pairs are in `baseline_metrics/`. 
+Baseline metrics are BLEU-1, METEOR, ROUGE-L, and BERTScore.
 
-To get predictions on the validation and test set of MOCHA, run `python baseline_metrics/write_mocha_preds.py`.
+Predictions on dev/test set of MOCHA: `python baseline_metrics/write_mocha_preds.py`.
 
-To get predictions on the minimal pair set of MOCHA, run `python baseline_metrics/write_minimal_pair_preds.py`
+Predictions on the minimal pairs: `python baseline_metrics/write_minimal_pair_preds.py`
 
-Predictions are written out into `baseline_metrics/preds/`
+Predictions are written out into `baseline_metrics/preds/`.
 
 ## Training LERC
 Coming soon.
@@ -42,7 +42,7 @@ We provide two evaluation scripts, one for evaluating predictions on the core MO
 
 
 #### MOCHA evaluation
-Example for running evaluation on MOCHA set from METEOR predictions:
+Example for running evaluation on the dev set of MOCHA set with METEOR predictions:
 ```
 python evaluate_mocha_preds.py 
     --annotations data/mocha/dev.json 
@@ -55,11 +55,7 @@ We provide Pearson correlation results for each constituent dataset (`overall` k
 ```
 >>> cat baseline_metrics/preds/meteor/dev_preds.json.corrs
 {
-    "cosmosqa": {
-        "overall": 0.6968409667327633,
-        "gpt2": 0.22695379552143194,
-        "backtranslation": 0.4144158064063406
-    },
+    ...
     "drop": {
         "overall": 0.6623693176399084,
         "nabert": 0.5838373885222617,
@@ -76,7 +72,7 @@ We provide Pearson correlation results for each constituent dataset (`overall` k
 ``` 
 
 #### Minimal pairs evaluation
-Example for running evaluation on minimal pairs set from METEOR predictions:
+Example for running evaluation on minimal pairs set with METEOR predictions:
 ```
 python evaluate_minimal_pair_preds.py 
     --annotations data/mocha/minimal_pairs.json
