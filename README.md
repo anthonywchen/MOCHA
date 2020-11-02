@@ -27,7 +27,7 @@ Training of LERC heavily relies on `allennlp`. This means that training paramete
 
 Training of LERC is broken down into pre-training on QA datasets followed by fine-tuning on MOCHA. 
 
-##### Pre-training
+#### Pre-training
 First process the raw QA dataset files:
 ```
 python data/pretraining/process_pretraining_data.py
@@ -40,7 +40,7 @@ allennlp train lerc/pretrain_config.json -s out/pretraining --include-package le
 ```
 This writes out the pre-trained model files into `out/pretraining`.
 
-##### Fine-tuning
+#### Fine-tuning
 To fine-tune the pre-trained model on MOCHA, run:
 ```
 allennlp train lerc/lerc_config.json -s out/lerc --include-package lerc
@@ -49,7 +49,7 @@ This writes out the trained model into `out/lerc`.
 
 Note that this LERC model is trained on all constituent datasets (AD setting in the paper). To hold out a constituent dataset(s) from training (OOD setting in the paper), add the name of that dataset into the `holdout_sets` key in `lerc/lerc_config.json`. The names of the six constituent datasets are `cosmosqa, drop, mcscript, narrativeqa, quoref, socialiqa`.
 
-##### Using LERC for Predictions
+#### Using LERC for Predictions
 To use LERC to make individual predictions:
 ```python
 from lerc.lerc_predictor import LERCPredictor
@@ -73,7 +73,7 @@ output_dict = predictor.predict_json(input_json)
 print('Predicted LERC Score:', output_dict['pred_score'])
 ```
 
-##### MOCHA and Minimal Pair Predictions
+#### MOCHA and Minimal Pair Predictions
 To get LERC predictions on the validation set of MOCHA:
 ```
 python -m lerc.write_mocha_preds --mocha_file data/mocha/dev.json -s out/lerc
@@ -88,7 +88,7 @@ The predictions are written out into `out/lerc/preds/`.
 ## Evaluating Predictions
 We provide two evaluation scripts, one for evaluating predictions on the core MOCHA set and one for evaluating predictions on the set of minimal pairs.
 
-##### MOCHA evaluation
+#### MOCHA evaluation
 Example for running evaluation on the dev set of MOCHA set with METEOR predictions:
 ```
 python evaluate_mocha_preds.py 
@@ -113,7 +113,7 @@ We provide Pearson correlation results for each constituent dataset (`overall` k
 }
 ``` 
 
-##### Minimal pairs evaluation
+#### Minimal pairs evaluation
 Example for running evaluation on minimal pairs set with METEOR predictions:
 ```
 python evaluate_minimal_pair_preds.py 
