@@ -1,5 +1,5 @@
 baseline_metrics/preds
-mocha/
 env/
+data/mocha/
 .DS_Store
 .idea/
