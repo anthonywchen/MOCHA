@@ -20,30 +20,31 @@ class PretrainLERC(Model):
 
     @overrides
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
-        return {metric_name: metric.get_metric(reset) for metric_name, metric in
-                self.metrics.items()}
+        return {metric_name: metric.get_metric(reset)
+                for metric_name, metric in self.metrics.items()}
 
-    def __init__(self,
-                 vocab=Vocabulary(),
-                 initializer=InitializerApplicator()
-                 ) -> None:
+    def __init__(
+        self,
+        bert_model: str = 'bert-base-uncased',
+        vocab=Vocabulary(),
+        initializer=InitializerApplicator()
+    ) -> None:
         super(PretrainLERC, self).__init__(vocab)
-        self.bert = BertModel.from_pretrained('bert-base-uncased')
+        self.bert = BertModel.from_pretrained(bert_model)
         self.label_layer = torch.nn.Linear(self.embedding_dim, 3)
-
         self.metrics = {'accuracy': CategoricalAccuracy()}
         self.loss = torch.nn.CrossEntropyLoss()
-
         initializer(self)
 
     @overrides
-    def forward(self,
-                input_ids: torch.Tensor,
-                token_type_ids: torch.Tensor,
-                attention_mask: torch.Tensor,
-                label: torch.Tensor = None,
-                metadata: Dict = None
-                ) -> Dict:
+    def forward(
+        self,
+        input_ids: torch.Tensor,
+        token_type_ids: torch.Tensor,
+        attention_mask: torch.Tensor = None,
+        label: torch.Tensor = None,
+        metadata: Dict = None
+    ) -> Dict:
         # output.size() = [batch_size, seq_len, embedding_dim]
         output, _ = self.bert(input_ids=input_ids,
                               token_type_ids=token_type_ids,

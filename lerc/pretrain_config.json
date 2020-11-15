@@ -7,10 +7,12 @@
     "validation_data_path": "data/pretraining/dev.jsonl",
     "dataset_reader": {
         "type": "pretrain-lerc",
+        "bert_model": "bert-base-uncased",
         "lazy": true
     },
     "model": {
-        "type": "pretrain-lerc"
+        "type": "pretrain-lerc",
+        "bert_model": "bert-base-uncased"
     },
     "data_loader": {
         "type": "pytorch_dataloader",

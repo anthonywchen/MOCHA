@@ -21,12 +21,13 @@ class LERC(Model):
 
     @overrides
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
-        return {metric_name: metric.get_metric(reset) for metric_name, metric in
-                self.metrics.items()}
+        return {metric_name: metric.get_metric(reset)
+                for metric_name, metric in self.metrics.items()}
 
     def __init__(
         self,
-        pretrained_archive_path=None,
+        bert_model: str = 'bert-base-uncased',
+        pretrained_archive_path: str = None,
         vocab=Vocabulary(),
         initializer=InitializerApplicator()
     ) -> None:
@@ -36,7 +37,7 @@ class LERC(Model):
             archive = load_archive(pretrained_archive_path)
             self.bert = archive.model.bert
         else:
-            self.bert = BertModel.from_pretrained('bert-base-uncased')
+            self.bert = BertModel.from_pretrained(bert_model)
 
         self.score_layer = torch.nn.Linear(self.embedding_dim, 1)
         self.metrics = {'pearson': PearsonCorrelation()}
@@ -48,7 +49,7 @@ class LERC(Model):
         self,
         input_ids: torch.Tensor,
         token_type_ids: torch.Tensor,
-        attention_mask: torch.Tensor,
+        attention_mask: torch.Tensor = None,
         score: torch.Tensor = None,
         metadata: Dict = None
     ) -> Dict:

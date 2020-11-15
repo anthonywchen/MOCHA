@@ -15,9 +15,13 @@ logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 @DatasetReader.register("pretrain-lerc")
 class PretrainLERCDatasetReader(DatasetReader):
-    def __init__(self, lazy: bool = False) -> None:
+    def __init__(
+        self,
+        bert_model: str = 'bert-base-uncased',
+        lazy: bool = False
+    ) -> None:
         super().__init__(lazy)
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        self.tokenizer = BertTokenizer.from_pretrained(bert_model)
 
     @overrides
     def _read(self, file_path: str):

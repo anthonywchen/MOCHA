@@ -7,11 +7,13 @@
 	"validation_data_path": "data/mocha/dev.json",
 	"dataset_reader": {
 		"type": "lerc",
+		"bert_model": "bert-base-uncased",
 		"holdout_sets": [],
 		"augment": true
 	},
 	"model": {
 		"type": "lerc",
+		"bert_model": "bert-base-uncased",
 		"pretrained_archive_path": "out/pretraining/model.tar.gz"
 	},
 	"data_loader": {

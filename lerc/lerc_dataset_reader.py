@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 class LERCDatasetReader(DatasetReader):
     def __init__(
         self,
+        bert_model: str = 'bert-base-uncased',
         max_length: int = 512,
         holdout_sets: list = [],
         augment: bool = True,
@@ -25,7 +26,7 @@ class LERCDatasetReader(DatasetReader):
         self.max_length = max_length
         self.holdout_sets = holdout_sets if type(holdout_sets) == list else [holdout_sets]
         self.augment = augment
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        self.tokenizer = BertTokenizer.from_pretrained(bert_model)
 
     @overrides
     def _read(self, file_path: str):
