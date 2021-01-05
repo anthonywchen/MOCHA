@@ -52,10 +52,11 @@ Note that this LERC model is trained on all constituent datasets (AD setting in 
 #### Using LERC for Predictions
 To use LERC to make individual predictions:
 ```python
+from allennlp.predictors import Predictor
 from lerc.lerc_predictor import LERCPredictor
 
 # Loads an AllenNLP Predictor that wraps our trained model
-predictor = LERCPredictor.from_path(
+predictor = Predictor.from_path(
     archive_path='out/lerc', # Path to the model archive
     predictor_name='lerc',   # model name
     cuda_device=0            # Set CUDA device with this parameter
@@ -71,6 +72,21 @@ input_json = {
 
 output_dict = predictor.predict_json(input_json)
 print('Predicted LERC Score:', output_dict['pred_score'])
+```
+
+#### Trained LERC Model Archive
+We provide a model archive with LERC trained on ALL constituent datasets of MOCHA. To load it, run:
+
+```python
+from allennlp.predictors import Predictor
+from lerc.lerc_predictor import LERCPredictor
+
+# Loads an AllenNLP Predictor that wraps our trained model
+predictor = Predictor.from_path(
+    archive_path='https://storage.googleapis.com/allennlp-public-models/lerc-2020-11-18.tar.gz',
+    predictor_name='lerc',
+    cuda_device=0
+)
 ```
 
 #### MOCHA and Minimal Pair Predictions
